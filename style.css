@@ -1,0 +1,406 @@
+:root {
+    /* User Requested Palette */
+    --bg-body: #FFE8E1;      /* Light Peach Background */
+    --bg-card: #ffffff;      /* White Card Background */
+    --primary-color: #CA2E55; /* Raspberry Red - Headings */
+    --secondary-color: #EFAAC4; /* Pink - Accents/Backgrounds */
+    --text-main: #2E2E3A;    /* Dark Blue-Grey - Main Text */
+    --dark-accent: #462521;  /* Dark Brown - Borders/Buttons */
+    
+    --border-radius: 12px;
+    --sidebar-width: 250px;
+}
+
+body {
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    padding-top: 60px; /* Make space for the fixed hamburger button area */
+}
+
+/* SIDEBAR STYLES (Mobile Look for Desktop) */
+#sidebar {
+    height: 100%;
+    width: 0; /* Hidden by default on all devices */
+    position: fixed;
+    z-index: 1002;
+    top: 0;
+    left: 0;
+    background-color: var(--dark-accent);
+    overflow-x: hidden;
+    transition: 0.3s;
+    padding-top: 60px; /* Space for close button inside if needed, or just top spacing */
+    box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+    white-space: nowrap;
+}
+
+#sidebar.expanded {
+    width: var(--sidebar-width);
+}
+
+/* Hamburger Button - Fixed and always visible */
+.sidebar-toggle {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1003;
+    font-size: 28px;
+    cursor: pointer;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 12px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: background 0.3s;
+}
+
+.sidebar-toggle:hover {
+    background-color: var(--dark-accent);
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-menu li a {
+    padding: 15px 25px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #f1f1f1;
+    display: block;
+    transition: 0.2s;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.sidebar-menu li a:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+/* Overlay to darken background when sidebar opens */
+#sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 1001;
+    backdrop-filter: blur(2px);
+}
+
+/* Semantic Containers */
+header, section, nav {
+    max-width: 900px;
+    margin: 0 auto 30px auto;
+    padding: 25px;
+    background: var(--bg-card);
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 8px rgba(46, 46, 58, 0.1); /* Soft shadow using palette text color */
+    border-top: 5px solid var(--primary-color);
+}
+
+/* Headings */
+h1 { color: var(--primary-color); text-align: center; margin-bottom: 10px; font-size: 2.5em;}
+h2 { 
+    color: var(--dark-accent); 
+    border-bottom: 2px solid var(--secondary-color); 
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+h3 { color: var(--primary-color); margin-bottom: 5px; margin-top: 20px; }
+h4 { color: var(--dark-accent); margin-bottom: 5px; }
+
+/* Meta Info Section Styling */
+.lesson-meta {
+    text-align: center;
+    color: var(--dark-accent);
+    font-style: italic;
+    margin-bottom: 20px;
+    background-color: var(--secondary-color);
+    padding: 10px;
+    border-radius: var(--border-radius);
+    opacity: 0.8;
+}
+.lesson-meta p { margin: 5px 0; }
+
+/* Navigation (TOC) */
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+}
+nav li a {
+    display: block;
+    text-decoration: none;
+    color: white;
+    background-color: var(--primary-color);
+    padding: 12px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    transition: all 0.3s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+nav li a:hover {
+    background-color: var(--dark-accent);
+    transform: translateY(-2px);
+}
+
+/* Vocabulary Cards - GRID LAYOUT */
+.vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.vocab-card {
+    border: 1px solid var(--secondary-color);
+    border-radius: 8px;
+    padding: 15px;
+    background: #fffafa;
+    transition: transform 0.2s;
+}
+.vocab-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(202, 46, 85, 0.2);
+}
+.vocab-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover; 
+    border-radius: 5px;
+    background-color: #ddd;
+    margin-bottom: 10px;
+}
+.vocab-pronun { color: var(--dark-accent); font-family: monospace; font-size: 0.9em; background: var(--secondary-color); padding: 2px 5px; border-radius: 4px; display: inline-block;}
+.vocab-def { font-weight: bold; color: var(--text-main); margin-top: 8px;}
+.vocab-example { font-style: italic; color: #555; border-left: 4px solid var(--primary-color); padding-left: 10px; background: #f9f9f9; padding: 5px 5px 5px 10px; margin-top: 5px;}
+
+/* Images in Reading Sections */
+.reading-img {
+    width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+    margin: 10px 0 20px 0;
+    border: 1px solid var(--secondary-color);
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background: white;
+}
+th, td {
+    border: 1px solid var(--secondary-color);
+    padding: 12px;
+    text-align: left;
+}
+th { background-color: var(--secondary-color); color: var(--dark-accent); }
+
+/* Audio Trigger Styling */
+.audio-trigger {
+    cursor: pointer;
+    transition: transform 0.1s;
+    display: inline-block;
+}
+.audio-trigger:active {
+    transform: scale(0.9);
+}
+.audio-trigger:hover {
+    text-shadow: 0 0 5px var(--primary-color);
+}
+
+/* Custom Audio Player Styling */
+audio {
+    width: 100%;
+    margin: 15px 0;
+    border-radius: 30px;
+}
+
+/* Exercise Sections */
+.exercise-box {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 15px;
+    border: 2px dashed var(--secondary-color);
+}
+.interactive-input {
+    padding: 8px;
+    border: 1px solid var(--dark-accent);
+    border-radius: 4px;
+    margin: 0 5px;
+    background: #fff;
+    font-family: inherit;
+}
+/* Dropdown styling */
+select.interactive-input {
+    cursor: pointer;
+    background-color: #fdfdfd;
+}
+
+.check-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 15px;
+    font-weight: bold;
+    font-size: 1rem;
+}
+.check-btn:hover { background-color: var(--dark-accent); }
+
+/* New Show Answer Button Style */
+.show-answer-btn {
+    background-color: var(--secondary-color);
+    color: var(--dark-accent);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 15px;
+    margin-left: 10px;
+    font-weight: bold;
+    font-size: 1rem;
+}
+.show-answer-btn:hover {
+    background-color: #d18ca0;
+}
+
+.feedback { font-weight: bold; margin-left: 10px; display: block; margin-top: 10px;}
+.correct { color: #2e7d32; } /* Keep green for success feedback */
+.incorrect { color: #c62828; } /* Keep red for error feedback */
+
+/* Conversation Styling */
+.conversation-box p {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    margin: 0;
+}
+.conversation-box p:nth-child(odd) { background-color: #fafafa; } /* Light grey for contrast */
+.conversation-box p:last-child { border-bottom: none; }
+
+/* Game & Writing Sections */
+.activity-card {
+    background: var(--secondary-color);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    margin-bottom: 15px;
+    color: var(--dark-accent);
+}
+.activity-card h3 { color: var(--dark-accent); margin-top: 0; }
+
+/* Back to top button */
+.back-link {
+    display: block;
+    text-align: right;
+    font-size: 0.8em;
+    margin-top: 15px;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Textarea for writing */
+textarea {
+    width: 100%;
+    height: 150px;
+    padding: 10px;
+    border: 1px solid var(--dark-accent);
+    border-radius: 8px;
+    font-family: inherit;
+    margin-top: 10px;
+    resize: vertical;
+}
+
+/* Pronunciation List */
+.pronunciation-list {
+    list-style: none;
+    padding: 0;
+}
+.pronunciation-list li {
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.matching-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+@media (max-width: 600px) {
+    .matching-grid { grid-template-columns: 1fr; }
+}
+
+/* Checkbox list style */
+.checklist {
+    list-style: none;
+    padding: 0;
+}
+.checklist li {
+    margin: 5px 0;
+}
+
+/* EMAIL INTERFACE STYLE */
+.email-interface {
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    font-family: 'Segoe UI', sans-serif;
+    margin-bottom: 20px;
+}
+
+.email-header {
+    background-color: #e6e6e6;
+    padding: 15px 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+.email-row {
+    margin-bottom: 8px;
+    font-size: 0.95em;
+}
+
+.email-row:last-child {
+    margin-bottom: 0;
+}
+
+.email-label {
+    color: #666;
+    font-weight: bold;
+    display: inline-block;
+    width: 60px;
+    text-align: right;
+    margin-right: 10px;
+}
+
+.email-content {
+    padding: 25px 30px;
+    background-color: #fff;
+    white-space: pre-wrap;
+    color: #333;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.email-signature {
+    margin-top: 20px;
+    color: #555;
+}
